@@ -1,6 +1,8 @@
 package org.example;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
+import co.elastic.clients.elasticsearch._types.SearchType;
+import co.elastic.clients.elasticsearch._types.StoredScript;
 import co.elastic.clients.elasticsearch._types.query_dsl.MatchAllQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.MatchQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
@@ -12,15 +14,21 @@ import co.elastic.clients.json.JsonpMapper;
 import co.elastic.clients.json.jackson.JacksonJsonpMapper;
 import co.elastic.clients.transport.ElasticsearchTransport;
 import co.elastic.clients.transport.rest_client.RestClientTransport;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.fasterxml.jackson.databind.util.JSONWrappedObject;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 import junit.framework.TestCase;
 import org.apache.http.HttpHost;
+import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.example.entity.Product;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -293,8 +301,7 @@ public class DocumentTest extends TestCase {
 
     /**
      * 多层嵌入式搜索
-     *  请求 -》 最终搜索参数 -》 子搜索参数（可多个）
-     *
+     * 请求 -》 最终搜索参数 -》 子搜索参数（可多个）
      */
     public void testNestedSearch() throws IOException {
         String searchText = "bike";
@@ -326,5 +333,58 @@ public class DocumentTest extends TestCase {
 
     }
 
+
+    // ======================= 通过模板查询 ======================
+
+    String templateId = "query-script";
+
+    // 创建模板
+    public void testCreateTemplate() throws IOException {
+        StoredScript mustacheTemplate = StoredScript.of(fn -> fn
+                .lang("mustache")
+                // 模板 json格式， {{}} 占位符
+                .source("{\"query\":{\"match\":{\"{{field}}\":\"{{value}}\"}}}"));
+
+        PutScriptRequest putScriptRequest = PutScriptRequest.of(fn -> fn
+                .id(templateId)
+                .script(mustacheTemplate));
+
+        PutScriptResponse putScriptResponse = client.putScript(putScriptRequest);
+
+        System.out.println("putScriptResponse = " + putScriptResponse);
+    }
+
+
+    /**
+     * 搜索指定模板
+     *
+     * @throws IOException
+     */
+    public void testGetSearchTemplate() throws IOException {
+        GetScriptRequest.Builder builder = new GetScriptRequest.Builder();
+        builder.id(templateId);
+        GetScriptRequest request = builder.build();
+
+        // 执行搜索模板请求
+        GetScriptResponse script = client.getScript(request);
+        System.out.println(script);
+    }
+
+
+    /**
+     * 使用模板查询
+     *
+     * @throws IOException
+     */
+    public void testSearchTemplate() throws IOException {
+        SearchTemplateRequest searchTemplateRequest = SearchTemplateRequest.of(fn -> fn
+                        .index(INDEX_NAME)
+                        .id(templateId)
+                        .params("field", JsonData.of("name"))
+                        .params("value", JsonData.of("bike")));
+
+        SearchTemplateResponse<Product> searchTemplateResponse = client.searchTemplate(searchTemplateRequest, Product.class);
+        System.out.println("searchTemplateResponse = " + searchTemplateResponse);
+    }
 
 }
