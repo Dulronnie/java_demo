@@ -1,5 +1,7 @@
 package org.example.sort;
 
+import javax.swing.plaf.basic.BasicSplitPaneUI;
+import java.io.CharArrayReader;
 import java.util.Arrays;
 
 /**
@@ -31,18 +33,48 @@ public class QuickSort {
         int[] arr = new int[] { 23,12,1,3,4,56,43,22,43,11,32,122,12};
         System.out.println(Arrays.toString(arr));
 
-        quickSort(arr,0,arr.length - 1);
+        // quickSort(arr,0,arr.length - 1);
+        //
+        // System.out.println(Arrays.toString(arr));
+        //
+        // quickSort1(arr,0,arr.length - 1);
+        // System.out.println("quickSort1" + Arrays.toString(arr));
+        //
+        // quickSort(arr,0,arr.length - 1);
+        // System.out.println(Arrays.toString(arr));
+        // quickSort(arr,0,arr.length - 1);
+        // System.out.println(Arrays.toString(arr));
 
-        System.out.println(Arrays.toString(arr));
+        quickSort2(arr,0,arr.length - 1);
+        System.out.println("quickSort3" + Arrays.toString(arr));
+        quickSort2(arr,0,arr.length - 1);
+        System.out.println("quickSort3" + Arrays.toString(arr));
+    }
 
-        quickSort1(arr,0,arr.length - 1);
-        System.out.println("quickSort1" + Arrays.toString(arr));
+    private static void quickSort2(int[] arr, int low, int high) {
+        if (low >= high) return;
 
-        quickSort(arr,0,arr.length - 1);
-        System.out.println(Arrays.toString(arr));
-        quickSort(arr,0,arr.length - 1);
-        System.out.println(Arrays.toString(arr));
+        int left = low;
+        int right = high;
+        while (left < right) {
+            while (right > left && arr[right] >= arr[low]) {
+                right--;
+            }
+            while (left < right && arr[left] <= arr[low]) {
+                left++;
+            }
 
+            int tmp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = tmp;
+        }
+
+        int tmp = arr[low];
+        arr[low] = arr[right];
+        arr[right] = tmp;
+
+        quickSort2(arr,low,right - 1);
+        quickSort2(arr,right + 1,high);
     }
 
     public static void quickSort(int[] arr, int low, int high) {
