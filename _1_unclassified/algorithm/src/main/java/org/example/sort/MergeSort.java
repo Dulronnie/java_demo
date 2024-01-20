@@ -21,7 +21,7 @@ import java.util.Arrays;
  *  归并的时候需要创建临时数组，O(n)
  *
  *  稳定性
- *  不稳定  [5,5,5,5]
+ *  ！稳定  [5,5,5,5]
  *
  *
  * @author hongchuzhen
