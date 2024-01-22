@@ -1,5 +1,7 @@
 package org.example.sort;
 
+import jdk.internal.org.objectweb.asm.tree.IntInsnNode;
+
 import javax.swing.*;
 import java.util.Arrays;
 
@@ -44,6 +46,34 @@ public class InsertionSort {
         insertionSort3(arr);
         System.out.println(Arrays.toString(arr));
 
+        arr = new int[] { 23, 12, 1, 3, 4, 56, 43, 22, 43, 11, 32, 122, 12};
+        insertionSort4(arr);
+        System.out.println(Arrays.toString(arr));
+        insertionSort4(arr);
+        System.out.println(Arrays.toString(arr));
+
+    }
+
+    private static void insertionSort4(int[] arr) {
+        if (arr == null) return;
+
+        int count = 0;
+        for (int i = 0; i < arr.length; i++) {
+            int tmp = arr[i];
+            int j = i - 1;
+            for (; j >= 0; j--) {
+                if (arr[j] > tmp) {
+                    arr[j + 1] = arr[j];
+                }else {
+                    break;
+                }
+                count++;
+            }
+            j++;
+            arr[j] = tmp;
+        }
+
+        System.out.println(count);
     }
 
     private static void insertionSort3(int[] arr) {
