@@ -64,6 +64,40 @@ public class QuickSort {
         System.out.println("quickSort3" + Arrays.toString(arr));
         quickSort3(arr,0,arr.length - 1);
         System.out.println("quickSort3" + Arrays.toString(arr));
+
+        quickSort4(arr,0,arr.length - 1);
+        System.out.println("quickSort4" + Arrays.toString(arr));
+        quickSort4(arr,0,arr.length - 1);
+        System.out.println("quickSort4" + Arrays.toString(arr));
+    }
+
+    private static void quickSort4(int[] arr, int left, int right) {
+        if (left >= right) return;
+
+        int leftP = left + 1;
+        int rightP = right;
+        while (leftP < rightP) {
+            while (rightP > leftP && arr[rightP] >= arr[left]) {
+                rightP--;
+            }
+
+            while (leftP < rightP && arr[leftP] <= arr[left]) {
+                leftP++;
+            }
+
+            int tmp = arr[rightP];
+            arr[rightP] = arr[leftP];
+            arr[leftP] = tmp;
+        }
+
+        int tmp = arr[rightP];
+        arr[rightP] = arr[left];
+        arr[left] = tmp;
+
+
+        quickSort3(arr,left,rightP - 1);
+        quickSort3(arr,rightP + 1, right);
+
     }
 
     /**

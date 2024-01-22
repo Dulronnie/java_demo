@@ -45,13 +45,58 @@ public class MergeSort {
         // mergeSort1(arr,0,arr.length - 1,tmpArr);
         // System.out.println(Arrays.toString(arr));
 
+        // arr = new int[] { 23,12,1,3,4,56,43,22,43,11,32,122,12};
+        // System.out.println(Arrays.toString(arr));
+        // mergeSort2(arr,0,arr.length - 1,tmpArr);
+        // System.out.println(Arrays.toString(arr));
+        // mergeSort2(arr,0,arr.length - 1,tmpArr);
+        // System.out.println(Arrays.toString(arr));
+
         arr = new int[] { 23,12,1,3,4,56,43,22,43,11,32,122,12};
         System.out.println(Arrays.toString(arr));
-        mergeSort2(arr,0,arr.length - 1,tmpArr);
+        mergeSort3(arr,0,arr.length - 1,tmpArr);
         System.out.println(Arrays.toString(arr));
-        mergeSort2(arr,0,arr.length - 1,tmpArr);
+        mergeSort3(arr,0,arr.length - 1,tmpArr);
         System.out.println(Arrays.toString(arr));
 
+    }
+
+    private static void mergeSort3(int[] arr, int left, int right, int[] tmpArr) {
+        if (arr == null || right <= left) return;
+
+        int middle = left + ((right - left) >> 1);
+        mergeSort3(arr,left,middle,tmpArr);
+        mergeSort3(arr,middle + 1, right,tmpArr);
+
+        int leftP = left;
+        int rightP = middle + 1;
+        int tmpP = 0;
+        while (leftP <= middle && rightP <= right) {
+            if (arr[leftP] <= arr[rightP]) {
+                tmpArr[tmpP] = arr[leftP];
+                leftP++;
+            }else {
+                tmpArr[tmpP] = arr[rightP];
+                rightP++;
+            }
+            tmpP++;
+        }
+
+        while (leftP <= middle) {
+            tmpArr[tmpP] = arr[leftP];
+            leftP++;
+            tmpP++;
+        }
+
+        while (rightP <= right) {
+            tmpArr[tmpP] = arr[rightP];
+            rightP++;
+            tmpP++;
+        }
+
+        for (int i = 0; i < tmpP; i++) {
+            arr[left + i] = tmpArr[i];
+        }
     }
 
     private static void mergeSort2(int[] arr, int low, int high, int[] tmpArr) {
