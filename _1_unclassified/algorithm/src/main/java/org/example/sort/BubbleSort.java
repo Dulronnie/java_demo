@@ -31,11 +31,33 @@ public class BubbleSort {
         bubbleSort(arr);
         System.out.println(Arrays.toString(arr));
 
+        // arr = new int[] { 23,12,1,3,4,56,43,22,43,11,32,122,12};
+        // bubbleSort1(arr);
+        // System.out.println(Arrays.toString(arr));
+        // bubbleSort1(arr);
+        // System.out.println(Arrays.toString(arr));
+
         arr = new int[] { 23,12,1,3,4,56,43,22,43,11,32,122,12};
-        bubbleSort1(arr);
+        bubbleSort2(arr);
         System.out.println(Arrays.toString(arr));
-        bubbleSort1(arr);
+        bubbleSort2(arr);
         System.out.println(Arrays.toString(arr));
+    }
+
+    private static void bubbleSort2(int[] arr) {
+        if (arr == null) return ;
+
+
+        // 第 i 轮的比较
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 1; j < arr.length - i;j++) {
+                if (arr[j - 1] > arr[j]) {
+                    int tmp = arr[j - 1];
+                    arr[j - 1] = arr[j];
+                    arr[j] = tmp;
+                }
+            }
+        }
     }
 
     private static void bubbleSort1(int[] arr) {

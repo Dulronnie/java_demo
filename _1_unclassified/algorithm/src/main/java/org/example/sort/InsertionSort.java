@@ -29,29 +29,56 @@ public class InsertionSort {
         insertionSort(arr);
         System.out.println(Arrays.toString(arr));
 
-        insertionSort1(arr);
-        System.out.println(Arrays.toString(arr));
-        insertionSort1(arr);
-        System.out.println(Arrays.toString(arr));
-
-        insertionSort2(arr);
-        System.out.println(Arrays.toString(arr));
-        insertionSort2(arr);
-        System.out.println(Arrays.toString(arr));
-
+        // insertionSort1(arr);
+        // System.out.println(Arrays.toString(arr));
+        // insertionSort1(arr);
+        // System.out.println(Arrays.toString(arr));
+        //
+        // insertionSort2(arr);
+        // System.out.println(Arrays.toString(arr));
+        // insertionSort2(arr);
+        // System.out.println(Arrays.toString(arr));
+        //
+        //
+        // arr = new int[] { 23, 12, 1, 3, 4, 56, 43, 22, 43, 11, 32, 122, 12};
+        // insertionSort3(arr);
+        // System.out.println(Arrays.toString(arr));
+        // insertionSort3(arr);
+        // System.out.println(Arrays.toString(arr));
+        //
+        // arr = new int[] { 23, 12, 1, 3, 4, 56, 43, 22, 43, 11, 32, 122, 12};
+        // insertionSort4(arr);
+        // System.out.println(Arrays.toString(arr));
+        // insertionSort4(arr);
+        // System.out.println(Arrays.toString(arr));
 
         arr = new int[] { 23, 12, 1, 3, 4, 56, 43, 22, 43, 11, 32, 122, 12};
-        insertionSort3(arr);
         System.out.println(Arrays.toString(arr));
-        insertionSort3(arr);
+        insertionSort5(arr);
         System.out.println(Arrays.toString(arr));
-
-        arr = new int[] { 23, 12, 1, 3, 4, 56, 43, 22, 43, 11, 32, 122, 12};
-        insertionSort4(arr);
-        System.out.println(Arrays.toString(arr));
-        insertionSort4(arr);
+        insertionSort5(arr);
         System.out.println(Arrays.toString(arr));
 
+    }
+
+    private static void insertionSort5(int[] arr) {
+        if (arr == null) return;
+
+        // 无序区的元素
+        for (int i = 1; i < arr.length; i++) {
+            // 有序区的元素
+            int tmp = arr[i];
+            int j = i - 1;
+            for (; j >= 0; j--) {
+                if (arr[j] > tmp) {
+                    arr[j + 1] = arr[j];
+                }else {
+                    break;
+                }
+            }
+            j++;
+            arr[j] = tmp;
+        }
     }
 
     private static void insertionSort4(int[] arr) {

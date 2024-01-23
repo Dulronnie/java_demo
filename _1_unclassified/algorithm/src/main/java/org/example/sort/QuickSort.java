@@ -1,8 +1,11 @@
 package org.example.sort;
 
+import com.sun.deploy.panel.ITreeNode;
+
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 import java.io.CharArrayReader;
 import java.util.Arrays;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 /**
  * 快速排序算法
@@ -43,9 +46,9 @@ public class QuickSort {
         int[] arr = new int[] { 23,12,1,3,4,56,43,22,43,11,32,122,12};
         System.out.println(Arrays.toString(arr));
 
-        // quickSort(arr,0,arr.length - 1);
-        //
-        // System.out.println(Arrays.toString(arr));
+        quickSort(arr,0,arr.length - 1);
+
+        System.out.println(Arrays.toString(arr));
         //
         // quickSort1(arr,0,arr.length - 1);
         // System.out.println("quickSort1" + Arrays.toString(arr));
@@ -60,15 +63,48 @@ public class QuickSort {
         // quickSort2(arr,0,arr.length - 1);
         // System.out.println("quickSort3" + Arrays.toString(arr));
 
-        quickSort3(arr,0,arr.length - 1);
-        System.out.println("quickSort3" + Arrays.toString(arr));
-        quickSort3(arr,0,arr.length - 1);
-        System.out.println("quickSort3" + Arrays.toString(arr));
+        // quickSort3(arr,0,arr.length - 1);
+        // System.out.println("quickSort3" + Arrays.toString(arr));
+        // quickSort3(arr,0,arr.length - 1);
+        // System.out.println("quickSort3" + Arrays.toString(arr));
 
-        quickSort4(arr,0,arr.length - 1);
-        System.out.println("quickSort4" + Arrays.toString(arr));
-        quickSort4(arr,0,arr.length - 1);
-        System.out.println("quickSort4" + Arrays.toString(arr));
+        // quickSort4(arr,0,arr.length - 1);
+        // System.out.println("quickSort4" + Arrays.toString(arr));
+        // quickSort4(arr,0,arr.length - 1);
+        // System.out.println("quickSort4" + Arrays.toString(arr));
+
+        arr = new int[] { 23,12,1,3,4,56,43,22,43,11,32,122,12};
+        quickSort5(arr,0,arr.length - 1);
+        System.out.println("quickSort5" + Arrays.toString(arr));
+        quickSort5(arr,0,arr.length - 1);
+        System.out.println("quickSort5" + Arrays.toString(arr));
+
+    }
+
+    private static void quickSort5(int[] arr, int left, int right) {
+        if (arr == null || left >= right) return;
+
+        int leftP = left;
+        int rightP = right;
+        while (leftP < rightP) {
+            while (rightP > leftP && arr[rightP] >= arr[left]) {
+                rightP--;
+            }
+
+            while(leftP < rightP && arr[leftP] <= arr[left]) {
+                leftP++;
+            }
+
+            int tmp = arr[rightP];
+            arr[rightP] = arr[leftP];
+            arr[leftP] = tmp;
+        }
+        int tmp = arr[rightP];
+        arr[rightP] = arr[left];
+        arr[left] = tmp;
+
+        quickSort5(arr,left,rightP - 1);
+        quickSort5(arr,rightP + 1,right);
     }
 
     private static void quickSort4(int[] arr, int left, int right) {
