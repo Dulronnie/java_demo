@@ -1,6 +1,7 @@
 package org.example.sort;
 
 import com.sun.deploy.panel.ITreeNode;
+import com.sun.scenario.effect.impl.sw.java.JSWBrightpassPeer;
 
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 import java.io.CharArrayReader;
@@ -73,18 +74,49 @@ public class QuickSort {
         // quickSort4(arr,0,arr.length - 1);
         // System.out.println("quickSort4" + Arrays.toString(arr));
 
-        arr = new int[] { 23,12,1,3,4,56,43,22,43,11,32,122,12};
-        quickSort5(arr,0,arr.length - 1);
-        System.out.println("quickSort5" + Arrays.toString(arr));
-        quickSort5(arr,0,arr.length - 1);
-        System.out.println("quickSort5" + Arrays.toString(arr));
+        // arr = new int[] { 23,12,1,3,4,56,43,22,43,11,32,122,12};
+        // quickSort5(arr,0,arr.length - 1);
+        // System.out.println("quickSort5" + Arrays.toString(arr));
+        // quickSort5(arr,0,arr.length - 1);
+        // System.out.println("quickSort5" + Arrays.toString(arr));
 
+        arr = new int[] { 23,12,1,3,4,56,43,22,43,11,32,122,12};
+        quickSort6(arr,0,arr.length - 1);
+        System.out.println("quickSort6" + Arrays.toString(arr));
+        quickSort6(arr,0,arr.length - 1);
+        System.out.println("quickSort6" + Arrays.toString(arr));
+
+    }
+
+    private static void quickSort6(int[] arr, int left, int right) {
+        if (arr == null || left >= right) return;
+
+        int leftP = left;
+        int rightP = right;
+        while (leftP < rightP) {
+            while (rightP > leftP && arr[rightP] >= arr[left]) {
+                rightP--;
+            }
+            while (leftP < rightP && arr[leftP] <= arr[left]) {
+                leftP++;
+            }
+
+            int tmp = arr[rightP];
+            arr[rightP] = arr[leftP];
+            arr[leftP] = tmp;
+        }
+        int tmp = arr[rightP];
+        arr[rightP] = arr[left];
+        arr[left] = tmp;
+
+        quickSort6(arr,left,rightP - 1);
+        quickSort6(arr,rightP + 1, right);
     }
 
     private static void quickSort5(int[] arr, int left, int right) {
         if (arr == null || left >= right) return;
 
-        int leftP = left;
+        int leftP = left + 1;
         int rightP = right;
         while (leftP < rightP) {
             while (rightP > leftP && arr[rightP] >= arr[left]) {

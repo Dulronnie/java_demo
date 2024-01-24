@@ -2,6 +2,8 @@ package org.example.sort;
 
 import com.sun.deploy.panel.ITreeNode;
 
+import javax.sql.rowset.FilteredRowSet;
+import javax.swing.*;
 import java.util.Arrays;
 
 /**
@@ -49,12 +51,39 @@ public class ShellSort {
         // shellSort2(arr);
         // System.out.println(Arrays.toString(arr));
 
+        // arr = new int[] { 23,12,1,3,4,56,43,22,43,11,32,122,12};
+        // System.out.println(Arrays.toString(arr));
+        // shellSort3(arr);
+        // System.out.println(Arrays.toString(arr));
+        // shellSort3(arr);
+        // System.out.println(Arrays.toString(arr));
+
         arr = new int[] { 23,12,1,3,4,56,43,22,43,11,32,122,12};
         System.out.println(Arrays.toString(arr));
-        shellSort3(arr);
+        shellSort4(arr);
         System.out.println(Arrays.toString(arr));
-        shellSort3(arr);
+        shellSort4(arr);
         System.out.println(Arrays.toString(arr));
+    }
+
+    private static void shellSort4(int[] arr) {
+        if (arr == null) return;
+
+        for (int gap = arr.length / 2; gap >= 1; gap /= 2) {
+            for (int i = gap; i < arr.length; i++) {
+                int tmp = arr[i];
+                int j = i - gap;
+                for ( ; j >= 0; j -= gap) {
+                    if (arr[j] > tmp) {
+                        arr[j + gap] = arr[j];
+                    }else {
+                        break;
+                    }
+                }
+                j += gap;
+                arr[j] = tmp;
+            }
+        }
     }
 
     private static void shellSort3(int[] arr) {
