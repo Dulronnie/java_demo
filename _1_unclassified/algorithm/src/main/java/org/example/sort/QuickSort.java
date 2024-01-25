@@ -12,7 +12,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
  * 快速排序算法
  *
  * 核心思想是，分治的思想。
- * 通过一个基准值，依据他把数组分为左右两个数组；左边的数组数字都比他小，右边的都比他大；通过不断交换数组左右两边的值来找到数组的分割位置
+ * 通过一个基准值，依据他把数组分为左右两个数组；左边的数组数字都比他小，右边的都比他大；通过不断交换数组左右两边的值来找到基准值的下标位置
  * 在每个数组里重复这样的操作
  *
  * 每一层划分数组的操作 都需要遍历一遍数组 (n),数组被递归地二分，(log n),时间复杂度为 ( n * log n );
@@ -81,10 +81,40 @@ public class QuickSort {
         // System.out.println("quickSort5" + Arrays.toString(arr));
 
         arr = new int[] { 23,12,1,3,4,56,43,22,43,11,32,122,12};
-        quickSort6(arr,0,arr.length - 1);
-        System.out.println("quickSort6" + Arrays.toString(arr));
-        quickSort6(arr,0,arr.length - 1);
-        System.out.println("quickSort6" + Arrays.toString(arr));
+        quickSort7(arr,0,arr.length - 1);
+        System.out.println("quickSort7" + Arrays.toString(arr));
+        quickSort7(arr,0,arr.length - 1);
+        System.out.println("quickSort7" + Arrays.toString(arr));
+
+
+
+    }
+
+    private static void quickSort7(int[] arr, int left, int right) {
+        if (arr == null || left >= right) return;
+
+        int leftP = left;
+        int rightP = right;
+        while (leftP < rightP) {
+            while (rightP >leftP && arr[rightP] >= arr[left]) {
+                rightP--;
+            }
+
+            while (leftP < rightP && arr[leftP] <= arr[left]) {
+                leftP++;
+            }
+
+            int tmp = arr[rightP];
+            arr[rightP] = arr[leftP];
+            arr[leftP] = tmp;
+        }
+
+        int tmp = arr[rightP];
+        arr[rightP] = arr[left];
+        arr[left] = tmp;
+
+        quickSort7(arr,left,rightP - 1);
+        quickSort7(arr,rightP + 1,right);
 
     }
 

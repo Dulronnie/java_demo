@@ -1,13 +1,12 @@
 package org.example.sort;
 
-import com.sun.deploy.panel.ITreeNode;
+import jdk.nashorn.internal.parser.Lexer;
 
 import java.io.CharArrayReader;
 import java.util.Arrays;
-import java.util.Iterator;
 
 /**
- *  堆排序 = 构建大顶堆（小顶堆） + 交换定点元素
+ *  堆排序 = 构建大顶堆（小顶堆） + [交换顶点元素 + 调整大顶堆]
  *
  *  1、把无序数组构建成一个大顶堆，此时，根节点就是最大的值
  *  2、取第一个元素，将其与无序数组的最后一个元素交换，调整最大堆
@@ -56,19 +55,67 @@ public class HeapSort {
         heapSort(arr);
         System.out.println(Arrays.toString(arr));
 
-        arr = new int[] { 23,12,1,3,4,56,43,22,43,11,32,122,12};
-        System.out.println(Arrays.toString(arr));
-        heapSort1(arr);
-        System.out.println(Arrays.toString(arr));
-        heapSort1(arr);
-        System.out.println(Arrays.toString(arr));
+        // arr = new int[] { 23,12,1,3,4,56,43,22,43,11,32,122,12};
+        // System.out.println(Arrays.toString(arr));
+        // heapSort1(arr);
+        // System.out.println(Arrays.toString(arr));
+        // heapSort1(arr);
+        // System.out.println(Arrays.toString(arr));
+        //
+        // arr = new int[] { 23,12,1,3,4,56,43,22,43,11,32,122,12};
+        // System.out.println(Arrays.toString(arr));
+        // heapSort3(arr);
+        // System.out.println(Arrays.toString(arr));
+        // heapSort3(arr);
+        // System.out.println(Arrays.toString(arr));
 
         arr = new int[] { 23,12,1,3,4,56,43,22,43,11,32,122,12};
         System.out.println(Arrays.toString(arr));
-        heapSort3(arr);
+        heapSort4(arr);
         System.out.println(Arrays.toString(arr));
-        heapSort3(arr);
+        heapSort4(arr);
         System.out.println(Arrays.toString(arr));
+
+    }
+
+    private static void heapSort4(int[] arr) {
+        if (arr == null) return;
+
+        // 构建大顶堆。从最后一个非叶子节点开始
+        for (int i = arr.length / 2; i >= 0; i--) {
+            heapify4(arr,i,arr.length - 1);
+        }
+
+        // 无序区元素处理。摘一个，调整一次
+        for (int i = arr.length - 1; i >= 0; i--) {
+            int tmp = arr[i];
+            arr[i] = arr[0];
+            arr[0] = tmp;
+
+            heapify4(arr,0,i);
+        }
+
+    }
+
+    private static void heapify4(int[] arr, int parent, int lastIndex) {
+        int largest = parent;
+        int left = 2 * parent + 1;
+        int right = 2 * parent + 2;
+
+        // 父节点与左节点是否需要交换
+        if (left <= lastIndex && arr[left] > arr[parent]) {
+            largest = left;
+        }
+
+        // 父节点与右节点是否需要交换
+        if (right <= lastIndex && arr[right] > arr[largest]) {
+            largest = right;
+        }
+
+        // 如果左节点或者右节点发生了调整，则该节点所在的子树也需要调整
+        if (largest != parent) {
+            heapify4(arr,largest,parent);
+        }
 
     }
 
