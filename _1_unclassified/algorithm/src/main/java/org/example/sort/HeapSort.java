@@ -71,11 +71,51 @@ public class HeapSort {
 
         arr = new int[] { 23,12,1,3,4,56,43,22,43,11,32,122,12};
         System.out.println(Arrays.toString(arr));
-        heapSort4(arr);
+        heapSort5(arr);
         System.out.println(Arrays.toString(arr));
-        heapSort4(arr);
+        heapSort5(arr);
         System.out.println(Arrays.toString(arr));
 
+
+
+    }
+
+    private static void heapSort5(int[] arr) {
+        if (arr == null) return;
+
+        for (int i = arr.length / 2 - 1; i >= 0; i--)  {
+            heapify5(arr,i,arr.length - 1);;
+        }
+
+        for (int i = arr.length - 1; i >= 0; i--) {
+            int tmp = arr[i];
+            arr[i] = arr[0];
+            arr[0] = tmp;
+
+            heapify5(arr,0,i - 1);
+        }
+    }
+
+    private static void heapify5(int[] arr, int parent, int lastIndex) {
+        int largest = parent;
+        int left = 2 * parent + 1;
+        int right = 2 * parent + 2;
+
+        if (left <= lastIndex && arr[left] > arr[parent]) {
+            largest = left;
+        }
+
+        if (right <= lastIndex && arr[right] > arr[largest]) {
+            largest = right;
+        }
+
+        if (largest != parent) {
+            int tmp = arr[largest];
+            arr[largest] = arr[parent];
+            arr[parent] = tmp;
+
+            heapify(arr,largest,lastIndex);
+        }
     }
 
     private static void heapSort4(int[] arr) {

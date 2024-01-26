@@ -38,10 +38,25 @@ public class BubbleSort {
         // System.out.println(Arrays.toString(arr));
 
         arr = new int[] { 23,12,1,3,4,56,43,22,43,11,32,122,12};
-        bubbleSort2(arr);
+        bubbleSort3(arr);
         System.out.println(Arrays.toString(arr));
-        bubbleSort2(arr);
+        bubbleSort3(arr);
         System.out.println(Arrays.toString(arr));
+    }
+
+    private static void bubbleSort3(int[] arr) {
+        if (arr == null) return;
+
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 1; j < arr.length - i; j++) {
+                if (arr[j - 1] > arr[j]) {
+                    int tmp = arr[j - 1];
+                    arr[j - 1] = arr[j];
+                    arr[j] = tmp;
+                }
+            }
+        }
+
     }
 
     private static void bubbleSort2(int[] arr) {

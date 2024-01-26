@@ -14,6 +14,9 @@ import java.util.Arrays;
  * 空间复杂度
  *  O(1)
  *
+ *  稳定性
+ *  不稳定  [5, 5, 2, 4, 1]
+ *
  * @author hongchuzhen
  * @date 1/20/2024
  */

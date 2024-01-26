@@ -81,14 +81,58 @@ public class QuickSort {
         // System.out.println("quickSort5" + Arrays.toString(arr));
 
         arr = new int[] { 23,12,1,3,4,56,43,22,43,11,32,122,12};
-        quickSort7(arr,0,arr.length - 1);
+        quickSort8(arr,0,arr.length - 1);
         System.out.println("quickSort7" + Arrays.toString(arr));
-        quickSort7(arr,0,arr.length - 1);
+        quickSort8(arr,0,arr.length - 1);
         System.out.println("quickSort7" + Arrays.toString(arr));
 
 
 
     }
+
+    private static void quickSort8(int[] arr, int left, int right) {
+        if (arr == null ||left >= right) return;
+
+        int leftP = left;
+        int rightP = right;
+        while (leftP < rightP) {
+            while (rightP > leftP && arr[rightP] >= arr[left]) {
+                rightP--;
+            }
+
+            while (leftP < rightP && arr[leftP] <= arr[left]) {
+                leftP++;
+            }
+
+            int tmp = arr[rightP];
+            arr[rightP] = arr[leftP];
+            arr[leftP] = tmp;
+        }
+
+        int tmp = arr[rightP];
+        arr[rightP] = arr[left];
+        arr[left] = tmp;
+
+        quickSort8(arr,left,rightP - 1);
+        quickSort8(arr,rightP + 1,right);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private static void quickSort7(int[] arr, int left, int right) {
         if (arr == null || left >= right) return;
